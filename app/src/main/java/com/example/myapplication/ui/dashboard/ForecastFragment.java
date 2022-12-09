@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myapplication.databinding.FragmentDashboardBinding;
+import com.example.myapplication.databinding.FragmentForecastBinding;
 
-public class DashboardFragment extends Fragment {
+public class ForecastFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentForecastBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        ForecastViewModel forecastViewModel =
+                new ViewModelProvider(this).get(ForecastViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentForecastBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        forecastViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
