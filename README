@@ -1,0 +1,5 @@
+This is my fishing application for Professor Greenwell's Software Project Comp Networks course.
+
+The app is designed to store a history of fishing events, and using this persisting data, calculate the best place to fish on any given day.
+
+tjbeam
