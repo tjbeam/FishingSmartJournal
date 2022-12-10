@@ -22,14 +22,23 @@ public class Report {
     public float timeFished;
 
     //constructor
-    public Report(String location, int numFish, float tideLevel, boolean isEbb, float timeFished){
+    public Report(String location, int numFish, float tideLevel, boolean isEbb, int timeOfDay, float timeFished){
         this.location = location;
         this.numFish = numFish;
         this.tideLevel = tideLevel;
         this.isEbb = isEbb;
+        this.timeOfDay = timeOfDay;
         this.timeFished = timeFished;
 
         reports.add(this);
 
+    }
+    public static void setReports(ArrayList<Report> list){
+        reports = list;
+        for (Report r:reports){
+            if (!locations.contains(r.location)){
+                locations.add(r.location);
+            }
+        }
     }
 }

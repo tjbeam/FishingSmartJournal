@@ -19,9 +19,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:background="#DDD7A1"
             android:text="Welcome to Fishing Smartjournal "
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/welcomeMessageText"
@@ -30,7 +31,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:text="Enter your catches here" />
+            android:text="Enter your catches here"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:id="@+id/LocationLayout"
@@ -111,6 +113,8 @@
             android:id="@+id/TideEbbOrFloodLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#00673AB7"
+            android:backgroundTint="#00000000"
             android:orientation="horizontal"
             android:weightSum="1">
 
@@ -119,6 +123,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:background="#00000000"
                 android:text="Ebb or Flood Tide"
                 android:textSize="20sp" />
 
@@ -134,6 +139,7 @@
             android:id="@+id/TimeOfDayLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#2196F3"
             android:orientation="horizontal">
 
             <TextView
@@ -156,6 +162,7 @@
             android:id="@+id/TimeFishedLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#8C97D5"
             android:orientation="horizontal">
 
             <TextView
@@ -163,6 +170,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:background="#00000000"
                 android:text="Time Fished"
                 android:textSize="20sp" />
 

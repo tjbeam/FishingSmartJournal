@@ -18,7 +18,6 @@ import com.example.myapplication.databinding.FragmentHistoryBinding;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HistoryFragment extends Fragment {
 

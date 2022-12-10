@@ -19,15 +19,16 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.myapplication.DBHelper;
 import com.example.myapplication.R;
 import com.example.myapplication.Report;
 import com.example.myapplication.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HomeFragment extends Fragment {
 
+    DBHelper db;
     private FragmentHomeBinding binding;
     Spinner locationSpinner;
     EditText numberFishNumber;
@@ -38,6 +39,10 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        //prepare and load database
+        db = new DBHelper(getActivity());
+        Report.setReports(db.getAllReports());
+
         //set up fragment
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
@@ -119,7 +124,11 @@ public class HomeFragment extends Fragment {
                 }
 
                 //create a new report
-                new Report(locationString, numFish, tideLevel, isEbb, timeFished);
+                new Report(locationString, numFish, tideLevel, isEbb, timeOfDay, timeFished);
+
+                //insert into database
+                db.insertReport(locationString, numFish, tideLevel, isEbb, timeOfDay, timeFished);
+
 
                 numberFishNumber.setText("");
                 tideLevelNumber.setText("");

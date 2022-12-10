@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Fishing Smart Journal</string>
     <string name="title_home">Report</string>
     <string name="title_dashboard">Spot Forecast</string>
     <string name="title_notifications">History</string>

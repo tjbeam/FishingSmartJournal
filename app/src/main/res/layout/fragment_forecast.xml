@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#EDE496"
         android:orientation="vertical">
 
         <TextView
@@ -18,6 +19,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:background="#AEE1E8"
             android:text="Forecast the best fishing spot for the current conditions"
             android:textAlignment="center"
             android:textSize="20sp" />
