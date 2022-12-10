@@ -35,8 +35,6 @@ public class HistoryFragment extends Fragment {
         final TextView textView = binding.textNotifications;
         historyViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-        /*String[] historyArray = {"Beach            Fish Caught:25\nTime Fished:2.25      Fish Per Hour:12",
-                "Beach            Fish Caught:100\nTime Fished:20      Fish Per Hour:3"};*/
 
         ArrayAdapter adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, getHistory());
