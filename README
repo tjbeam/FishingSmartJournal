@@ -2,4 +2,10 @@ This is my fishing application for Professor Greenwell's Software Project Comp N
 
 The app is designed to store a history of fishing events, and using this persisting data, calculate the best place to fish on any given day.
 
+Report screen is used to submit your fishing sessions into the database.
+
+Enter current conditions in the forecast screen to use your past fishing to tell you the best spot to fish.
+
+History shows the history of your submissions
+
 tjbeam
