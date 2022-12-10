@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        //set up fragment
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
@@ -47,10 +48,12 @@ public class HomeFragment extends Fragment {
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
+        //set up submit button and on click listener
         Button submitButton = (Button) root.findViewById(R.id.SubmitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //check for valid inputs
                 if(locationSpinner.getSelectedItemPosition() <= 1){
                     Toast.makeText(getContext(), "Pick a valid location", Toast.LENGTH_SHORT).show();
                     return;
@@ -115,12 +118,19 @@ public class HomeFragment extends Fragment {
                     return;
                 }
 
+                //create a new report
                 new Report(locationString, numFish, tideLevel, isEbb, timeFished);
 
+                numberFishNumber.setText("");
+                tideLevelNumber.setText("");
+                timeFishedNumber.setText("");
+
                 Toast.makeText(getContext(),"Submitted Report. Good Job" , Toast.LENGTH_SHORT).show();
+
             }
         });
 
+        //set up clear button and on click listener
         Button clearButton = (Button) root.findViewById(R.id.ClearButton);
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +142,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //set up ebb/flood spinner
         ebbFSpinner = root.findViewById(R.id.EbbFSpinner);
         String[] ebbFOptions = {"Ebb/Outgoing", "Flood/Incoming"};
         ArrayAdapter ebbFSpinnerAdapter
@@ -141,6 +152,7 @@ public class HomeFragment extends Fragment {
                         .simple_spinner_dropdown_item);
         ebbFSpinner.setAdapter(ebbFSpinnerAdapter);
 
+        //set up time of day spinner
         timeOfDaySpinner = root.findViewById(R.id.TimeSpinner);
         String[] timeOfDayOptions = {"Dawn", "Early Day", "Late Day", "Dusk", "Night"};
         ArrayAdapter timeOfDayAdapter
@@ -150,8 +162,8 @@ public class HomeFragment extends Fragment {
                         .simple_spinner_dropdown_item);
         timeOfDaySpinner.setAdapter(timeOfDayAdapter);
 
+        //set up location spinner
         locationSpinner = root.findViewById(R.id.LocationSpinner);
-
         ArrayList<String> spinnerList = new ArrayList<>();
         spinnerList.add("Select Location");
         spinnerList.add("Add New Location");
@@ -162,9 +174,11 @@ public class HomeFragment extends Fragment {
                 android.R.layout
                         .simple_spinner_dropdown_item);
         locationSpinner.setAdapter(locationAdapter);
+        //set up listener for adding new location
         locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //add new location selected, show dialogue
                 if (position == 1){
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setTitle("New Location");
@@ -179,6 +193,7 @@ public class HomeFragment extends Fragment {
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            //add new location
                             Report.locations.add(input.getText().toString());
                             spinnerList.add(input.getText().toString());
                             locationSpinner.setSelection(spinnerList.size() - 1);

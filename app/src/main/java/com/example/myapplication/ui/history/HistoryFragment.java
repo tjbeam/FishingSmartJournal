@@ -26,6 +26,7 @@ public class HistoryFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        //set up fragment
         HistoryViewModel historyViewModel =
                 new ViewModelProvider(this).get(HistoryViewModel.class);
 
@@ -35,7 +36,7 @@ public class HistoryFragment extends Fragment {
         final TextView textView = binding.textNotifications;
         historyViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-
+        //set up history list view
         ArrayAdapter adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, getHistory());
 
@@ -51,6 +52,7 @@ public class HistoryFragment extends Fragment {
         binding = null;
     }
 
+    //goes through all reports and returns formatted array list of strings
     public ArrayList<String> getHistory(){
         ArrayList<String> historyList = new ArrayList<>();
         DecimalFormat df = new DecimalFormat("#.##");

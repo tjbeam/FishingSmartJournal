@@ -35,6 +35,7 @@ public class ForecastFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        //set up fragment
         ForecastViewModel forecastViewModel =
                 new ViewModelProvider(this).get(ForecastViewModel.class);
 
@@ -44,6 +45,7 @@ public class ForecastFragment extends Fragment {
         final TextView textView = binding.textDashboard;
         forecastViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
+        //set up ebb/flood spinner
         ebbFSpinner = root.findViewById(R.id.EbbFForecast);
         String[] ebbFOptions = {"Both","Ebb/Outgoing", "Flood/Incoming"};
         ArrayAdapter<String> ebbFSpinnerAdapter
@@ -52,6 +54,8 @@ public class ForecastFragment extends Fragment {
                 android.R.layout
                         .simple_spinner_dropdown_item);
         ebbFSpinner.setAdapter(ebbFSpinnerAdapter);
+
+        //set up item selected listener to filter results with input
         ebbFSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -64,6 +68,7 @@ public class ForecastFragment extends Fragment {
             }
         });
 
+        //set up time spinner
         timeSpinner = root.findViewById(R.id.TimeForecastSpinner);
         String[] timeOfDayOptions = {"All","Dawn", "Early Day", "Late Day", "Dusk", "Night"};
         ArrayAdapter<String> timeOfDayAdapter
@@ -72,6 +77,7 @@ public class ForecastFragment extends Fragment {
                 android.R.layout
                         .simple_spinner_dropdown_item);
         timeSpinner.setAdapter(timeOfDayAdapter);
+        //set up item selected listener to filter results with input
         timeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -84,6 +90,7 @@ public class ForecastFragment extends Fragment {
             }
         });
 
+        //set up tide edit text and add listener to filter results after input
         tideNumber = (EditText) root.findViewById(R.id.TideLevelForecast);
         tideNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,17 +120,21 @@ public class ForecastFragment extends Fragment {
         binding = null;
     }
 
+    //goes through all reports, calculates scores, and updates listview
     public void filterResults(){
 
+        //fetch tide level if entered
         float tideLevel = -1000;
         try {
             tideLevel = Float.parseFloat(tideNumber.getText().toString());
         }catch(NumberFormatException nfe){
-            tideLevel = -1000;
+            tideLevel = -1000; //set to indicate no tide level
         }
 
+        //get ebb/flood value
         boolean isEbb = ebbFSpinner.getSelectedItemPosition() == 1;
 
+        //get time of day value
         int timeOfDay = -1;
         switch(timeSpinner.getSelectedItemPosition()){
             case 0:
@@ -150,15 +161,19 @@ public class ForecastFragment extends Fragment {
 
         ArrayList<String> stringResults = new ArrayList<>();
         DecimalFormat df = new DecimalFormat("#.##");
+        //for each location prepare totals
         for (String loc:Report.locations){
             int totalFish = 0;
             float totalHours = 0;
             int totalScore = 0;
+            //go through each report
             for (Report r:Report.reports){
                 int score = 1;
+                //if the report matches the current location proceed
                 if(r.location.equalsIgnoreCase(loc)){
                     totalFish += r.numFish;
                     totalHours += r.timeFished;
+                    //adjust score multiplier by filter matches
                     if(r.tideLevel >= tideLevel - .5f && r.tideLevel <= tideLevel + .5f){
                         score += 2;
                     }
@@ -168,20 +183,21 @@ public class ForecastFragment extends Fragment {
                     if(r.timeOfDay == timeOfDay){
                         score += 1;
                     }
+                    //final score algorithm with score multiplier by average fish
                     totalScore += score * 10 * totalFish / totalHours;
                 }
 
 
             }
+            //build our string result and add it
             String theString = totalScore + " " +  loc + "  Fish/hr:" + df.format(totalFish/totalHours)
                     + "  Caught:" +  + totalFish;
             stringResults.add(theString);
         }
 
+        //update list array adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, stringResults);
-
-
         listView.setAdapter(adapter);
 
     }
