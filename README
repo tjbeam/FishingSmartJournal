@@ -1,4 +1,4 @@
-This is my fishing application for Professor Greenwell's Software Project Comp Networks course.
+This is my fishing application that I created to help me track my fishing success and find the best spots to fish!
 
 The app is designed to store a history of fishing events, and using this persisting data, calculate the best place to fish on any given day.
 
